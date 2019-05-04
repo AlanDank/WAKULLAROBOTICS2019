@@ -7,15 +7,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.Asub;
 //import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,9 +28,12 @@ import frc.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem subsystem = new ExampleSubsystem();
+
+
   public static DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static OI oi;
+  public static Asub Asub = new Asub();
+
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -36,8 +42,15 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+ 
+  Compressor compressor = new Compressor();
+
+
   @Override
   public void robotInit() {
+
+
+    compressor.setClosedLoopControl(true);
     oi = new OI();
     chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
